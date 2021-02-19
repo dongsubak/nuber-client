@@ -1,4 +1,4 @@
-# nuber-client
+# Nuber Client
 
 Nuber Client - Typescript, React, Apollo
 
