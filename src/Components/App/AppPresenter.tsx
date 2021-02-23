@@ -1,5 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
+//import styled from "../../typed-components";
+
+//const Thing = styled.div`
+//  background: ${props => props.theme.primaryColor}
+//`
 
 
 interface IProps {
