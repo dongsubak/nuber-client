@@ -2,6 +2,26 @@
 
 Nuber Client - Typescript, React, Apollo
 
+## Screens:
+
+### Logged Out:
+
+  - [ ] Home
+  - [ ] Phone Login
+  - [ ] Verify Phone Number
+  - [ ] Social Login
+
+### Logged In:
+
+  - [ ] Home
+  - [ ] Ride
+  - [ ] Edit Account
+  - [ ] Settings
+  - [ ] Saved Places
+  - [ ] Add Place
+  - [ ] Challenge: Ride History
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
