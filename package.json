@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "apollo-boost": "^0.4.9",
     "cra-template-typescript": "1.1.2",
