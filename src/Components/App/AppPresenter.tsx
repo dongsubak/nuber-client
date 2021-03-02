@@ -28,7 +28,7 @@ interface IProps {
 
 const AppPresenter: React.FC<IProps> = ({isLoggedIn}) => 
   <BrowserRouter>
-    isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />
+    { isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes /> }
   </BrowserRouter>
 ;
 

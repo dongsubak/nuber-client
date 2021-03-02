@@ -1,6 +1,6 @@
-import baseStyled, { ThemedStyledInterface } from 'styled-components';
+import baseStyled, { DefaultTheme, ThemedStyledInterface } from 'styled-components';
 
-export const theme = {
+export const theme: DefaultTheme = {
   blueColor: "#3498db",
   greyColor: "#7f8c8d"
 }
