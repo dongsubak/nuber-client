@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { graphql } from "react-apollo";
 import GlobalStyle from "../../global-styles";
 import { theme } from "../../theme"

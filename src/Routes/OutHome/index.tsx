@@ -1,5 +1,6 @@
-import React from "react";
+import OutHomePresenter from "./OutHomePresenter";
+// import React from "react";
 
 const index = () => <span></span>;
-
-export default index;
+console.log(index);
+export default OutHomePresenter;
