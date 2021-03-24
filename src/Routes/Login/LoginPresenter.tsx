@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
 import styled from "../../typed-components";
 import bgImage from "../../images/bg.png";
@@ -65,8 +66,11 @@ const SocialLink = styled.span`
 
 interface IProps extends RouteComponentProps<any> {}
 
-const OutHomePresenter: React.FC<IProps> = () => (
+const LoginPresenter: React.FC<IProps> = () => (
   <Container>
+    <Helmet>
+      <title>Login | Nuber</title>
+    </Helmet>
     <Header>
       <Logo>
         <Title>Nuber</Title>
@@ -90,4 +94,4 @@ const OutHomePresenter: React.FC<IProps> = () => (
   </Container>
   );
   
-  export default OutHomePresenter;
+  export default LoginPresenter;

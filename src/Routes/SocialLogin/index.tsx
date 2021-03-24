@@ -1,5 +1,3 @@
-// import React from "react";
+import SocialLoginContainer from "./SocialLoginContainer";
 
-const index = () => <span></span>;
-
-export default index;
+export default SocialLoginContainer;
