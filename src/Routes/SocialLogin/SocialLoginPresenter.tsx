@@ -1,4 +1,3 @@
-import React from "react";
 import Helmet from "react-helmet";
 import BackArrow from "../../Components/BackArrow";
 import styled from "../../typed-components";
