@@ -1,4 +1,5 @@
 import Helmet from "react-helmet";
+import PropTypes from "prop-types";
 import BackArrow from "../../Components/BackArrow";
 import Input from "../../Components/Input";
 import countries from "../../countries";
@@ -52,14 +53,22 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PhoneLoginPresenter = () => (
+interface IProps {
+  countryCode: string;
+  phoneNumber: string;
+}
+
+const PhoneLoginPresenter: React.FC<IProps> = ({
+  countryCode,
+  phoneNumber
+}) => (
   <Container>
     <Helmet>
       <title>Phone Login | Number</title>
     </Helmet>
     <BackArrowExtended backTo={"/"} />
     <Title>Enter your mobile number</Title>
-    <CountrySelect>
+    <CountrySelect value={countryCode} >
       {countries.map((country, index) => (
         <CountryOption key={index} value={country.dial_code}>
           {country.flag} {country.name} ({country.dial_code})
@@ -67,15 +76,20 @@ const PhoneLoginPresenter = () => (
       ))}
     </CountrySelect>
     <Form>
-      <Input placeholder={"02 0202 0202"} />
+      <Input placeholder={"02 0202 0202"} value={phoneNumber} />
       <Button>
-        <svg
-        >
+        <svg>
           <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
-        </svg>
+        </svg> 
       </Button>
     </Form>
   </Container>
 )
+
+PhoneLoginPresenter.propTypes = {
+  countryCode: PropTypes.string.isRequired,
+  phoneNumber: PropTypes.string.isRequired
+
+}
 
 export default PhoneLoginPresenter;

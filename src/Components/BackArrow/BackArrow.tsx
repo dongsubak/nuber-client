@@ -11,6 +11,8 @@ interface Iprops {
   className?: string;
 }
 
+//backTo is prop.
+//"styled" component passes through className. const BackArrowExtended = styled(BackArrow)``;
 const BackArrow: React.FC<Iprops> = ({ backTo, className }) => (
   <Container className={className}>
     <Link to={backTo}>
