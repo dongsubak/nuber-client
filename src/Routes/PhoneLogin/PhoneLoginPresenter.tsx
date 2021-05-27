@@ -1,5 +1,6 @@
+import React from "react";
 import Helmet from "react-helmet";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import BackArrow from "../../Components/BackArrow";
 import Input from "../../Components/Input";
 import countries from "../../countries";
@@ -56,11 +57,18 @@ const Button = styled.button`
 interface IProps {
   countryCode: string;
   phoneNumber: string;
+  onInputChange: (
+    event: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement>
+  ) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
+// VS Code에서 onInputChange에 mouseover했을 때 나오는 것을 copy and paste 했다
 
 const PhoneLoginPresenter: React.FC<IProps> = ({
   countryCode,
-  phoneNumber
+  phoneNumber,
+  onInputChange, 
+  onSubmit
 }) => (
   <Container>
     <Helmet>
@@ -68,16 +76,16 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
     </Helmet>
     <BackArrowExtended backTo={"/"} />
     <Title>Enter your mobile number</Title>
-    <CountrySelect value={countryCode} >
+    <CountrySelect value={countryCode} name={"countryCode"} onChange={()=>onInputChange}>
       {countries.map((country, index) => (
         <CountryOption key={index} value={country.dial_code}>
           {country.flag} {country.name} ({country.dial_code})
         </CountryOption>
       ))}
     </CountrySelect>
-    <Form>
-      <Input placeholder={"02 0202 0202"} value={phoneNumber} />
-      <Button>
+    <Form onSubmit={onSubmit}>
+      <Input placeholder={"02 0202 0202"} value={phoneNumber} name={"phoneNumber"} onChange={onInputChange} />
+      <Button onClick={()=>onSubmit}>
         <svg>
           <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
         </svg> 
@@ -86,10 +94,13 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
   </Container>
 )
 
+/*
+// TS 쓰므로, propTypes 쓸 필요가 없다.
 PhoneLoginPresenter.propTypes = {
   countryCode: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string.isRequired
 
 }
+*/
 
 export default PhoneLoginPresenter;
