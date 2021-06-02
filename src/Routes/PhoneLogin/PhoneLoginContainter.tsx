@@ -1,5 +1,6 @@
 import React from "react";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
+import { toast } from "react-toastify";
 import { RouteComponentProps } from "react-router-dom";
 
 // interface IProps extends RouteComponentProps<any> {}
@@ -38,8 +39,16 @@ class PhoneLoginContainer extends React.Component<
   public onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const { countryCode, phoneNumber } = this.state;
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${countryCode}${phoneNumber}`);
     // ts-lint:disable-next-line
     console.log(countryCode, phoneNumber);
+    // ts-lint:disable-next-line
+    console.log(isValid);
+    if (isValid) {
+      return;
+    } else {
+      toast.error("Please write a valid phone number");
+    }
   };
 } 
 
