@@ -18,9 +18,9 @@ class PhoneLoginContainer extends React.Component<
   };
  
   public render() {
-    alert(this.state.countryCode + this.state.phoneNumber); //console.log is not working
+    //alert(this.state.countryCode + this.state.phoneNumber); //console.log is not working
     const { countryCode, phoneNumber } = this.state;
-    return (<PhoneLoginPresenter countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={()=>this.onInputChange} onSubmit={this.onSubmit} />);
+    return (<PhoneLoginPresenter countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} />);
   }
   
   //CountrySelect나 Input이 바뀌면 onInputChange가 실행된다.
@@ -32,7 +32,7 @@ class PhoneLoginContainer extends React.Component<
       [name]: value
     } as any);
     //as any 붙여야 error가 안 난다. This is a normal bug that always happens
-    return event;
+    //return event;
   };
 
   public onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
