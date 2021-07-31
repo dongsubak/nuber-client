@@ -56,7 +56,7 @@ class PhoneLoginContainer extends React.Component<
           };
           return (
             <PhoneLoginPresenter 
-              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit}
+              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit}
             />
           );
         }
