@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost"
+import { gql, useMutation } from "@apollo/client"
 
 export const PHONE_SIGN_IN = gql`
   # mutation apollo용(){ graphql BackEnd용(){} }

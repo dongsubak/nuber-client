@@ -1,9 +1,11 @@
 import React from "react";
-import { Mutation }from "react-apollo";
+import { Mutation } from "react-apollo"
+import { useMutation } from "@apollo/client"
 import { toast } from "react-toastify";
 import { RouteComponentProps } from "react-router-dom";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { PHONE_SIGN_IN } from "./PhoneQueries";
+import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
+import { any } from "prop-types";
 
 
 // interface IProps extends RouteComponentProps<any> {}
@@ -17,8 +19,8 @@ interface IState {
 //  error: string;
 //}
 
-interface IMutationInterface{
-  phoneNumber: string;
+interface IMutationInterface {
+  phoneNumber: string
 }
 
 class PhoneSignInMutation extends Mutation<any, IMutationInterface>{
@@ -39,6 +41,7 @@ class PhoneLoginContainer extends React.Component<
     const { countryCode, phoneNumber } = this.state;
     //return (<PhoneLoginPresenter countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} />)
     //안쓴다. you should pass function
+    const [mutation, { data }] = useMutation(PHONE_SIGN_IN);
     return (
       <PhoneSignInMutation 
         mutation={PHONE_SIGN_IN} 
@@ -95,6 +98,13 @@ class PhoneLoginContainer extends React.Component<
       toast.error("Please write a valid phone number");
     }
   };
+
+  public afterSubmit: MutationUpdaterFn = (cache, result: any) => {
+    const data: startPhoneVerification = result.data;
+    
+    //tslint:disable-next-line
+    console.log(data);
+  }
 } 
 
 export default PhoneLoginContainer;
