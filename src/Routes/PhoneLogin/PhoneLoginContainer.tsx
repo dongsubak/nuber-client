@@ -1,11 +1,13 @@
 import React from "react";
-import { Mutation } from "react-apollo"
-import { useMutation } from "@apollo/client"
+import { Mutation } from "react-apollo";
+import { MutationUpdaterFn, useMutation } from "@apollo/client"
 import { toast } from "react-toastify";
+import { startPhoneVerification, startPhoneVerificationVariables } from "../../types/api";
 import { RouteComponentProps } from "react-router-dom";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 import { any } from "prop-types";
+
 
 
 // interface IProps extends RouteComponentProps<any> {}
@@ -19,13 +21,9 @@ interface IState {
 //  error: string;
 //}
 
-interface IMutationInterface {
-  phoneNumber: string
-}
-
-class PhoneSignInMutation extends Mutation<any, IMutationInterface>{
-  // any = data
-}
+//interface IMutationInterface {
+//  phoneNumber: string
+//}
 
 class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>, 
@@ -41,15 +39,9 @@ class PhoneLoginContainer extends React.Component<
     const { countryCode, phoneNumber } = this.state;
     //return (<PhoneLoginPresenter countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} />)
     //안쓴다. you should pass function
-    const [mutation, { data }] = useMutation(PHONE_SIGN_IN);
+    const [mutation] = useMutation<startPhoneVerification, startPhoneVerificationVariables>(PHONE_SIGN_IN, {update: this.afterSubmit});
     return (
-      <PhoneSignInMutation 
-        mutation={PHONE_SIGN_IN} 
-        variables={{
-          phoneNumber: `${countryCode}${phoneNumber}`
-        }}
-      >
-        {(mutation, { loading }) => {
+        (mutation, { loading }) => {
         const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
           const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${countryCode}${phoneNumber}`);
             // ts-lint:disable-next-line
@@ -64,11 +56,10 @@ class PhoneLoginContainer extends React.Component<
           };
           return (
             <PhoneLoginPresenter 
-              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit} loading={loading}
+              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit}
             />
           );
-        }}
-      </PhoneSignInMutation>
+        }
     );
   }
   
@@ -99,11 +90,13 @@ class PhoneLoginContainer extends React.Component<
     }
   };
 
+  //update mutation
   public afterSubmit: MutationUpdaterFn = (cache, result: any) => {
     const data: startPhoneVerification = result.data;
     
     //tslint:disable-next-line
     console.log(data);
+    console.log(result);
   }
 } 
 
