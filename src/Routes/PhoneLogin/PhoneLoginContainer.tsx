@@ -1,5 +1,5 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, MutationFunction } from "react-apollo";
 import { MutationUpdaterFn } from "apollo-boost";
 import { toast } from "react-toastify";
 import { startPhoneVerification } from "../../types/api";
@@ -30,11 +30,12 @@ class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>, 
   IState
 > {
+  public phoneMutation: MutationFunction;
   public state = {
     countryCode: "+82",
     phoneNumber: ""
   };
- 
+
   public render() {
     //alert(this.state.countryCode + this.state.phoneNumber); //console.log is not working
     const { countryCode, phoneNumber } = this.state;
@@ -43,21 +44,11 @@ class PhoneLoginContainer extends React.Component<
     
     return (
         <Mutation mutation={PHONE_SIGN_IN} variables={{phoneNumber: `${countryCode}${phoneNumber}`}} update={this.afterSubmit}>
-
         {(mutation, { loading }) => {
-        const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
-          const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${countryCode}${phoneNumber}`);
-            // ts-lint:disable-next-line
-            console.log(isValid);
-            if (isValid) {
-              mutation();
-            } else {
-              toast.error("Please write a valid phone number");
-            }
-          };
+          this.phoneMutation = mutation;
           return (
             <PhoneLoginPresenter 
-              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit} loading={loading}
+              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} loading={loading}
             />
           );
         }}
@@ -80,9 +71,28 @@ class PhoneLoginContainer extends React.Component<
     //return event;
   };
 
+  public onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
+    const { countryCode, phoneNumber } = this.state;
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${countryCode}${phoneNumber}`);
+      // ts-lint:disable-next-line
+      console.log(isValid);
+      if (isValid) {
+        this.phoneMutation();
+      } else {
+        toast.error("Please write a valid phone number");
+      }
+    };
+
   //update mutation
   public afterSubmit: MutationUpdaterFn = (cache, result: any) => {
     const data: startPhoneVerification = result.data;
+    const { StartPhoneVerification } = data;
+    if (StartPhoneVerification.ok) {
+      return;
+    } else {
+      toast.error(StartPhoneVerification.error);
+    }
     
     //tslint:disable-next-line
     console.log(data);
