@@ -42,13 +42,11 @@ class PhoneLoginContainer extends React.Component<
     //안쓴다. you should pass function
     
     return (
-        <Mutation mutation={PHONE_SIGN_IN} variables={{phoneNumber: `${countryCode}-${phoneNumber}`}} update={this.afterSubmit}>
+        <Mutation mutation={PHONE_SIGN_IN} variables={{phoneNumber: `${countryCode}${phoneNumber}`}} update={this.afterSubmit}>
 
         {(mutation, { loading }) => {
         const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
           const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${countryCode}${phoneNumber}`);
-            // ts-lint:disable-next-line
-            console.log(countryCode, phoneNumber);
             // ts-lint:disable-next-line
             console.log(isValid);
             if (isValid) {
@@ -59,7 +57,7 @@ class PhoneLoginContainer extends React.Component<
           };
           return (
             <PhoneLoginPresenter 
-              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit}
+              countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={onSubmit} loading={loading}
             />
           );
         }}
@@ -75,6 +73,9 @@ class PhoneLoginContainer extends React.Component<
     this.setState({
       [name]: value
     } as any);
+    console.log("event:"+event);
+    console.log(name);;
+    console.log(value);
     //as any 붙여야 error가 안 난다. This is a normal bug that always happens
     //return event;
   };
