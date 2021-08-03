@@ -1,7 +1,6 @@
 import React from "react";
 import { Mutation, MutationFunction } from "react-apollo";
 import { toast } from "react-toastify";
-import { startPhoneVerification } from "../../types/api";
 import { RouteComponentProps } from "react-router-dom";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
