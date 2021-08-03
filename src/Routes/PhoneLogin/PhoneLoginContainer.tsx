@@ -1,6 +1,5 @@
 import React from "react";
 import { Mutation, MutationFunction } from "react-apollo";
-import { MutationUpdaterFn } from "apollo-boost";
 import { toast } from "react-toastify";
 import { startPhoneVerification } from "../../types/api";
 import { RouteComponentProps } from "react-router-dom";
@@ -43,7 +42,19 @@ class PhoneLoginContainer extends React.Component<
     //안쓴다. you should pass function
     
     return (
-        <Mutation mutation={PHONE_SIGN_IN} variables={{phoneNumber: `${countryCode}${phoneNumber}`}} update={this.afterSubmit}>
+        <Mutation 
+          mutation={PHONE_SIGN_IN} 
+          variables={{phoneNumber: `${countryCode}${phoneNumber}`}} 
+          //update mutation
+          onCompleted={data =>{
+            const { StartPhoneVerification } = data;
+            if (StartPhoneVerification.ok) {
+              return;
+            } else {
+              toast.error(StartPhoneVerification.error);
+            }
+          }}
+        >
         {(mutation, { loading }) => {
           this.phoneMutation = mutation;
           return (
@@ -83,21 +94,6 @@ class PhoneLoginContainer extends React.Component<
         toast.error("Please write a valid phone number");
       }
     };
-
-  //update mutation
-  public afterSubmit: MutationUpdaterFn = (cache, result: any) => {
-    const data: startPhoneVerification = result.data;
-    const { StartPhoneVerification } = data;
-    if (StartPhoneVerification.ok) {
-      return;
-    } else {
-      toast.error(StartPhoneVerification.error);
-    }
-    
-    //tslint:disable-next-line
-    console.log(data);
-    console.log(result);
-  }
 } 
 
 export default PhoneLoginContainer;
