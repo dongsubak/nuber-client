@@ -3,7 +3,7 @@ import { Mutation, MutationFunction } from "react-apollo";
 import { toast } from "react-toastify";
 import { RouteComponentProps } from "react-router-dom";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
+import { PHONE_SIGN_IN } from "./PhoneQueries";
 
 
 
