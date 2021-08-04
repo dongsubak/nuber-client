@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "../../typed-components";
 
 const Container = styled.input`
@@ -28,10 +29,27 @@ interface IProps {
   value: string;
   name?: string;
   onChange: any;
+  className?: string;
 }
 
-const Input: React.FC<IProps> = ({onChange, name = "", placeholder = "", type = "text", required = true, value }) => (
-  <Container onChange={onChange} name={name} type={type} required={required} value={value} placeholder={placeholder} />
+const Input: React.FC<IProps> = ({
+  placeholder = "",
+  type = "text",
+  required = true,
+  value,
+  name = "",
+  onChange,
+  className 
+}) => (
+  <Container 
+    className={className}
+    onChange={onChange} 
+    name={name} 
+    type={type} 
+    required={required} 
+    value={value} 
+    placeholder={placeholder} 
+  />
 );
 
 export default Input;
