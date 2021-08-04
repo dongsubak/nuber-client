@@ -12,9 +12,7 @@ const ExtendedForm = styled(Form)`
   padding: 0px 40px;
 `;
 
-const ExtendedInput = styled(Input)`
-  margin-bottom: 20px;
-`;
+//const ExtendedInput = styled(Input)`margin-bottom: 20px;`;
 
 interface IProps {
   key: string;
@@ -28,10 +26,11 @@ const VerifyPhonePresenter: React.FC<IProps> = ({ key, onChange }) => (
     </Helmet>
     <Header backTo={"/phone-login"} title={"Verify Phone Number"} />
     <ExtendedForm submitFn={null}>
-      <ExtendedInput 
-        value={""}
+      <Input 
+        value={key}
         placeholder={"Enter Verification Code"}
-        onChange={null}
+        onChange={onChange}
+        name={"key"}
       />
       <Button value={"Submit"} onClick={null} />
     </ExtendedForm>

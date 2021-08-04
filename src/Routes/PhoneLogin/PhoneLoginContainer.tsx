@@ -39,16 +39,26 @@ class PhoneLoginContainer extends React.Component<
     const { countryCode, phoneNumber } = this.state;
     //return (<PhoneLoginPresenter countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} />)
     //안쓴다. you should pass function
-    
+    const phone = `${this.state.countryCode}${this.state.phoneNumber}`
+    const { history } = this.props;
+
     return (
         <Mutation 
           mutation={PHONE_SIGN_IN} 
-          variables={{phoneNumber: `${countryCode}${phoneNumber}`}} 
+          variables={{phoneNumber: phone}} 
           //update mutation
           onCompleted={data =>{
             const { StartPhoneVerification } = data;
             if (StartPhoneVerification.ok) {
-              return;
+              toast.success("SMS Sent!");
+              setTimeout(() => {
+                history.push({
+                  pathname: "/verify-phone",
+                  state: {
+                    phone
+                  }
+                });
+              }, 1000);
             } else {
               toast.error(StartPhoneVerification.error);
             }
@@ -83,19 +93,12 @@ class PhoneLoginContainer extends React.Component<
 
   public onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
     event.preventDefault();
-    const { history } = this.props;
-    const phone = `${this.state.countryCode}${this.state.phoneNumber}`
-    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
+
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(`${this.state.countryCode}${this.state.phoneNumber}`);
       // ts-lint:disable-next-line
       console.log(isValid);
       if (isValid) {
-        // this.phoneMutation();
-        history.push({
-          pathname: "/verify-phone",
-          state: {
-            phone
-          }
-        });
+        this.phoneMutation();
       } else {
         toast.error("Please write a valid phone number");
       }
