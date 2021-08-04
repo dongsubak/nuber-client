@@ -9,6 +9,8 @@ interface ThemeInterface {
 }
 */
 
+
+/*
 type StyledFunction<T> = styledComponents.ThemedStyledFunction<any, ThemeInterface>;
 
 function withProps<T, U extends HTMLElement = HTMLElement>(
@@ -16,6 +18,7 @@ function withProps<T, U extends HTMLElement = HTMLElement>(
 ): StyledFunction<T & React.HTMLProps<U>> {
   return styledFunction;
 }
+*/
 
 const {
   default: styled,
@@ -25,5 +28,5 @@ const {
   ThemeProvider
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<ThemeInterface>; //or <ThemeInterface>
 
-export { css, createGlobalStyle, keyframes, ThemeProvider, withProps };
+export { css, createGlobalStyle, keyframes, ThemeProvider, /*withProps*/ };
 export default styled;

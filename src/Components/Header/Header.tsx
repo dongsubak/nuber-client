@@ -2,7 +2,7 @@ import React from "react";
 import styled from "../../typed-components";
 import BackArrow from "../BackArrow";
 
-const Container = styled.input`
+const Container = styled.header`
   background-color: black;
   color: white;
   display: flex;
