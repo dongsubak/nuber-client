@@ -3,7 +3,7 @@ import { Mutation, MutationFunction } from "react-apollo";
 import { toast } from "react-toastify";
 import { RouteComponentProps } from "react-router-dom";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { PHONE_SIGN_IN } from "./PhoneQueries";
+import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 
 
 
@@ -54,9 +54,7 @@ class PhoneLoginContainer extends React.Component<
               setTimeout(() => {
                 history.push({
                   pathname: "/verify-phone",
-                  state: {
-                    phone
-                  }
+                  state: phone
                 });
               }, 1000);
             } else {
