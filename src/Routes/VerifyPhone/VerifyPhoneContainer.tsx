@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LOG_USER_IN } from "../../sharedQueries";
 import VerifyPhonePresenter from "./VerifyPhonePresenter";
-import { VERIFY_PHONE } from "./VerifyPhoneQueries.queries";
+import { VERIFY_PHONE } from "./VerifyPhone.queries";
 
 interface IState {
   key: string;
