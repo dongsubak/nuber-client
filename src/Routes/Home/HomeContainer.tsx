@@ -1,5 +1,8 @@
 import React from "react";
+import { Query } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
+import { USER_PROFILE } from "../../shared.queries";
+import { userProfile } from "../../types/api";
 import HomePresenter from "./HomePresenter";
 
 interface IState {
@@ -14,13 +17,17 @@ class HomeContainer extends React.Component<IProps, IState> {
   }
   public render() {
     const { isMenuOpen } = this.state;
-    return <HomePresenter isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+    return (
+      <Query<userProfile> query={USER_PROFILE}> 
+        <HomePresenter isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+      </Query>
+    )
   }
   public toggleMenu = () => {
     this.setState(state => {
       return {
         isMenuOpen: !state.isMenuOpen
-      }
+      };
     })
   }
 }
