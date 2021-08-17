@@ -1,6 +1,6 @@
-import { BooleanLiteralTypeAnnotation } from "@babel/types";
 import React from "react";
 import { Link } from "react-router-dom";
+import { userProfile } from "../../types/api";
 import styled from "../../typed-components"
 
 const Container = styled.div`
@@ -74,22 +74,39 @@ const ToggleDriving = styled.button<IToggleProps>`
   cursor: pointer;
 `;
 
-const MenuPresenter: React.FC = () => (
+interface IProps {
+  data?: userProfile;
+  loading: boolean;
+}
+
+const MenuPresenter: React.FC<IProps> = ({
+  data: { GetMyProfile : { user = null } = {} } = {},
+  // data: { GetMyProfile : { user = null } = {} } = {} 
+  // = 앞이 undefined 면 {}
+  loading
+}) => (
   <Container>
-    <Header>
-      <Grid>
-        <Link to="/edit-account">
-          <Image src={""} />
-        </Link>
-        <Text>
-          <Name>Name</Name>
-          <Rating>5/5</Rating>
-        </Text>
-      </Grid>
-    </Header>
-    <SLink to="/trips">Your Trips</SLink>
-    <SLink to="/settings">Settings</SLink>
-    <ToggleDriving isDriving={true}>{false ? "Stop driving" : "Start driving"}</ToggleDriving>
+    {!loading && user && user.fullName && (
+    <React.Fragment>
+      <Header>
+        <Grid>
+          <Link to="/edit-account">
+            <Image src={
+              user.profilePhoto ||
+              ""
+            } />
+          </Link>
+          <Text>
+            <Name>{user.fullName /*위에 && user.fullName 빼고 user.fullName!도 된다.*/}</Name>
+            <Rating>5/5</Rating>
+          </Text>
+        </Grid>
+      </Header>
+      <SLink to="/trips">Your Trips</SLink>
+      <SLink to="/settings">Settings</SLink>
+      <ToggleDriving isDriving={user.isDriving}>{user.isDriving ? "Stop driving" : "Start driving"}</ToggleDriving>
+    </React.Fragment>
+    )}
   </Container>
 );
 
