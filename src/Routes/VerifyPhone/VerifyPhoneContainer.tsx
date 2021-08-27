@@ -7,7 +7,7 @@ import VerifyPhonePresenter from "./VerifyPhonePresenter";
 import { VERIFY_PHONE } from "./VerifyPhone.queries";
 
 interface IState {
-  key: string;
+  verificationKey: string;
   phoneNumber: string;
 }
 
@@ -19,53 +19,65 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
     super(props);
     // tslint:disable-next-line
     console.log(props);
+
+    try {
+      Object.hasOwnProperty.call(props.location.state, "phone");
+    } catch (e) {
+      props.history.push("/");
+    }
+    /*
     if(!props.location.state){
       props.history.push("/");
     } else {
+    */
       this.state = {
-        key: "",
+        verificationKey: "",
         phoneNumber: props.location.state as string
       };
-    }
+      this.onInputChange = this.onInputChange.bind(this);
+    // }
   };
   //public phoneMutation: MutationFunction;
   public render() {
-    const { key, phoneNumber } = this.state;
+    const { verificationKey, phoneNumber } = this.state;
     return (
       <Mutation mutation={LOG_USER_IN}>
         {logUserIn => (
           <Mutation 
             mutation={VERIFY_PHONE} 
             variables={{ 
-              key,
+              key: verificationKey,
               phoneNumber
             }}
-            onCompleted={( data ) => {
+            onCompleted={data => {
               const { CompletePhoneVerification } = data;
+              console.log("CompletePhoneVerification")
+              console.log(CompletePhoneVerification)
               if (CompletePhoneVerification.ok) {
                 if (CompletePhoneVerification.token) {
-                  logUserIn({variables: {
-                    token: CompletePhoneVerification.token
-                  }})
+                  logUserIn({
+                    variables: {
+                      token: CompletePhoneVerification.token
+                    }
+                  });
                 }
-                // tslint:disable-next-line
-                // console.log(CompletePhoneVerification);
                 toast.success("You are verified, Now You can login")
-                return;
               } else {
                 toast.error(CompletePhoneVerification.error);
               }
-            }}
+                // tslint:disable-next-line
+                // console.log(CompletePhoneVerification);
+              }}
           >
             {(mutation, { loading }) => {
               //this.phoneMutation = mutation;
               return (
                 <VerifyPhonePresenter 
-                  key={key} 
-                  onChange={this.onInputChange}
+                  verificationKey={verificationKey} 
+                  onInputChange={this.onInputChange}
                   onSubmit={mutation}
                   loading={loading}
-                  />
+                />
               );
             }}
           </Mutation> 
@@ -75,13 +87,12 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
     );
   }
   public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
-    const {
-      target: { name, value }
-    } = event;
+    const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
+      verificationKey: value
     } as any);
-  };
+  }
 }
 
 export default VerifyPhoneContainer;
