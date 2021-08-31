@@ -1,4 +1,3 @@
 import { gql } from "apollo-boost";
 
-export const HOME = gql`
-`;
+//export const HOME = gql``;

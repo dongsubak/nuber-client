@@ -1,8 +1,8 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, MutationFunction } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
-import { LOG_USER_IN } from "../../sharedQueries";
+import { LOG_USER_IN } from "../../sharedQueries.local";
 import VerifyPhonePresenter from "./VerifyPhonePresenter";
 import { VERIFY_PHONE } from "./VerifyPhone.queries";
 
@@ -37,9 +37,10 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
       this.onInputChange = this.onInputChange.bind(this);
     // }
   };
-  //public phoneMutation: MutationFunction;
+  public phoneMutation: MutationFunction;
   public render() {
     const { verificationKey, phoneNumber } = this.state;
+    // Mutation, MutationFunction comparison - EditAccount, PhoneLogin, SocialLogin, VerifyPhone
     return (
       <Mutation mutation={LOG_USER_IN}>
         {logUserIn => (
@@ -69,13 +70,13 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
                 // console.log(CompletePhoneVerification);
               }}
           >
-            {(mutation, { loading }) => {
-              //this.phoneMutation = mutation;
+            {(phoneMutation, { loading }) => {
+              this.phoneMutation = phoneMutation;
               return (
                 <VerifyPhonePresenter 
                   verificationKey={verificationKey} 
                   onInputChange={this.onInputChange}
-                  onSubmit={mutation}
+                  onSubmit={this.phoneMutation}
                   loading={loading}
                 />
               );

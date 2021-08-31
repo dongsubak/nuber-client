@@ -2,7 +2,7 @@ import React from "react";
 import { Mutation, MutationFunction } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
-import { LOG_USER_IN } from "../../sharedQueries";
+import { LOG_USER_IN } from "../../sharedQueries.local";
 import { FACEBOOK_CONNECT } from "./SocialLogin.queries";
 import SocialLoginPresenter from "./SocialLoginPresenter";
 
@@ -25,7 +25,8 @@ class SocialLoginContainer extends React.Component<IProps, IState> {
   }
   public facebookMutation: MutationFunction;
   public render() {
-    //  const { firstName, lastName, email, fbId } = this.state;
+    // const { firstName, lastName, email, fbId } = this.state;
+    // Mutation, MutationFunction comparison - EditAccount, PhoneLogin, SocialLogin, VerifyPhone
     return (
       <Mutation mutation={LOG_USER_IN}>
         {(logUserIn => (

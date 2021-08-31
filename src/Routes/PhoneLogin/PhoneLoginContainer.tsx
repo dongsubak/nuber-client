@@ -41,7 +41,7 @@ class PhoneLoginContainer extends React.Component<
     //안쓴다. you should pass function
     const phone = `${this.state.countryCode}${this.state.phoneNumber}`
     const { history } = this.props;
-
+    // Mutation, MutationFunction comparison - EditAccount, PhoneLogin, SocialLogin, VerifyPhone
     return (
         <Mutation 
           mutation={PHONE_SIGN_IN} 
@@ -62,8 +62,8 @@ class PhoneLoginContainer extends React.Component<
             }
           }}
         >
-        {(mutation, { loading }) => {
-          this.phoneMutation = mutation;
+        {(phoneMutation, { loading }) => {
+          this.phoneMutation = phoneMutation;
           return (
             <PhoneLoginPresenter 
               countryCode={countryCode} phoneNumber={phoneNumber} onInputChange={this.onInputChange} onSubmit={this.onSubmit} loading={loading}
