@@ -1,6 +1,7 @@
 import React from "react";
 import { MutationFunction } from "react-apollo";
 import Helmet from "react-helmet"
+import PhotoInput from "../../Components/PhotoInput";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
@@ -25,6 +26,8 @@ interface IProps {
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: MutationFunction;
   loading: boolean;
+  uploaded: boolean;
+  uploading: boolean;
 }
 
 const EditAccountPresenter: React.FC<IProps> = ({
@@ -33,7 +36,10 @@ const EditAccountPresenter: React.FC<IProps> = ({
   email,
   onInputChange,
   onSubmit,
-  loading
+  profilePhoto,
+  loading,
+  uploaded,
+  uploading
 }) => (
   <Container>
     <Helmet>
@@ -41,23 +47,27 @@ const EditAccountPresenter: React.FC<IProps> = ({
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
     <ExtendedForm submitFn={onSubmit}>
+      <PhotoInput uploaded={uploaded} uploading={uploading} fileUrl={profilePhoto} />
       <ExtendedInput 
         onChange={onInputChange}
         type={"text"}
         value={firstName}
         placeholder={"First Name"}
+        name={"firstName"}
       />
       <ExtendedInput 
         onChange={onInputChange}
         type={"text"}
         value={lastName}
         placeholder={"Last Name"}
+        name={"lastName"}
       />
       <ExtendedInput 
         onChange={onInputChange}
         type={"email"}
         value={email}
         placeholder={"Email"}
+        name={"email"}
       />
       <Button onClick={null} value={loading ? "Loading" : "Update"} />
     </ExtendedForm>
