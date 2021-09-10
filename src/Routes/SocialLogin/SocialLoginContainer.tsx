@@ -64,7 +64,7 @@ class SocialLoginContainer extends React.Component<IProps, IState> {
   }
   
   public loginCallback = response => {
-    const { first_name, email, last_name, id, accessToken } = response;
+    const { first_name, last_name, email, id, accessToken } = response;
     if (accessToken) {
       toast.success(`Welcome ${first_name} ${last_name}`);
       this.facebookMutation({

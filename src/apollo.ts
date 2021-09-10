@@ -1,6 +1,10 @@
 import ApolloClient, { Operation } from "apollo-boost";
+import { InMemoryCache } from "apollo-cache-inmemory";
+
+const cache = new InMemoryCache();
 
 const client = new ApolloClient({
+  cache,
   clientState: {
     defaults: {
       auth: {
@@ -45,7 +49,13 @@ const client = new ApolloClient({
       }
     });
   },
-  uri: "http://localhost:4000/graphql"
+  uri: "http://localhost:4000/graphql",
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', JSON.stringify(graphQLErrors, null, 2));
+    console.log('networkError', JSON.stringify(networkError, null, 2));
+  }
 });
+
+cache.writeData({ data: {}});
 
 export default client;
