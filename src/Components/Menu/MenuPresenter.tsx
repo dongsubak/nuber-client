@@ -66,7 +66,7 @@ interface IToggleProps {
 
 const ToggleDriving = styled.button<IToggleProps>`
   --webkit-appearance: none;
-  background-color: ${props => props.isDriving ? props.theme.yellowColor : props.theme.greenColor};
+  background-color: ${props => (props.isDriving ? props.theme.yellowColor : props.theme.greenColor)};
   width: 100%;
   color: white;
   font-size: 18px;
@@ -96,7 +96,7 @@ const MenuPresenter: React.FC<IProps> = ({
           <Link to="/edit-account">
             <Image src={
               user.profilePhoto ||
-              ""
+              "https://lh3.googleusercontent.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAUg/8T5nFuIdnHE/photo.jpg"
             } />
           </Link>
           <Text>
@@ -107,7 +107,7 @@ const MenuPresenter: React.FC<IProps> = ({
       </Header>
       <SLink to="/trips">Your Trips</SLink>
       <SLink to="/settings">Settings</SLink>
-      <ToggleDriving onClick={()=>toggleDrivingFn} isDriving={user.isDriving}>{user.isDriving ? "Stop driving" : "Start driving"}</ToggleDriving>
+      <ToggleDriving onClick={()=>toggleDrivingFn()} isDriving={user.isDriving}>{user.isDriving ? "Stop driving" : "Start driving"}</ToggleDriving>
     </React.Fragment>
     )}
   </Container>

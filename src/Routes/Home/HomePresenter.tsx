@@ -1,6 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet"
 import Sidebar from "react-sidebar";
+import MenuContainer from "../../Components/Menu/MenuContainer";
 import styled from "../../typed-components";
 
 const Container = styled.div``;
@@ -17,7 +18,7 @@ const HomePresenter: React.FC<IProps> = ({isMenuOpen, toggleMenu, loading}) => (
       <title>Home | Nuber </title>
     </Helmet>
     <Sidebar
-      sidebar={<b>Sidebar Content</b>}
+      sidebar={<MenuContainer />}
       open={isMenuOpen}
       onSetOpen={toggleMenu}
       styles={{ sidebar: { 

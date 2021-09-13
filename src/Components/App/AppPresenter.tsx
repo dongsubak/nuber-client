@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
-
 import AddPlace from "../../Routes/AddPlace";
 import EditAccount from "../../Routes/EditAccount";
 import FindAddress from "../../Routes/FindAddress";
