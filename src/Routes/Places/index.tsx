@@ -1,5 +1,2 @@
-// import React from "react";
-
-const index = () => <span></span>;
-
-export default index;
+import Place from "./Place";
+export default Place;
