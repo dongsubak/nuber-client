@@ -4,8 +4,8 @@ import Header from "../../Components/Header";
 import { MutationFunction } from "react-apollo";
 import { Link } from "react-router-dom";
 import styled from "../../typed-components";
-import { userProfile } from "src/types/api";
 import Place from "../Places";
+import { getPlaces, userProfile } from "../../types/api";
 
 const Container = styled.div`
   padding: 0px 40px;
@@ -42,7 +42,21 @@ const SLink = styled(Link)`
   margin: 20px 0px;
 `;
 
-const SettingsPresenter = ()=> (
+interface IProps {
+  logUserOut: MutationFunction;
+  userData?: userProfile;
+  placesData?: getPlaces;
+  userDataLoading: boolean;
+  placesDataLoading: boolean;
+}
+
+const SettingsPresenter: React.FC<IProps> = ({ 
+  logUserOut, 
+  userData: { GetMyProfile : { user = null } = {} } = {}, 
+  placesData: { GetMyPlaces: { places = null } = {} } = {}, 
+  userDataLoading,
+  placesDataLoading
+}) => (
   <React.Fragment>
     <Helmet>
       <title>Settings | Nuber</title>
@@ -50,17 +64,21 @@ const SettingsPresenter = ()=> (
     <Header title={"Account Settings"} backTo={"/"} />
     <Container>
       <GridLink to={"/edit-account"}>
-        <Image src={"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"} />
-        <Keys>
-          <Key>user.fullName</Key>
-          <Key>user.email</Key>
-        </Keys>
+        { !userDataLoading && user && user.profilePhoto && user.email && user.fullName && (
+          <React.Fragment>
+            <Image src={user.profilePhoto} />
+            <Keys>
+              <Key>{user.fullName}</Key>
+              <Key>{user.email}</Key>
+            </Keys>
+          </React.Fragment>
+        )}
       </GridLink>
-      <Place fav={false} name={"Home"} address={"1111"} />
-      <Place fav={false} name={"Home"} address={"1111"} />
-      <Place fav={false} name={"Home"} address={"1111"} />
+      { !placesDataLoading && places && places.map(place => (
+        <Place key={place!.id} fav={place!.isFav} name={place!.name} address={place!.address} />
+      ))}
       <SLink to={"/places"}></SLink>
-      <FakeLink>Log Out</FakeLink>
+      <FakeLink onClick={logUserOut as any}>Log Out</FakeLink>
     </Container>
   </React.Fragment>
 )
