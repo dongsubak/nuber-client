@@ -74,7 +74,7 @@ const SettingsPresenter: React.FC<IProps> = ({
           </React.Fragment>
         )}
       </GridLink>
-      { !placesDataLoading && places && places.map(place => (
+      {!placesDataLoading && places && places.map(place => (
         <Place key={place!.id} fav={place!.isFav} name={place!.name} address={place!.address} />
       ))}
       <SLink to={"/places"}></SLink>
