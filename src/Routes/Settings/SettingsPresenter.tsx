@@ -4,7 +4,7 @@ import Header from "../../Components/Header";
 import { MutationFunction } from "react-apollo";
 import { Link } from "react-router-dom";
 import styled from "../../typed-components";
-import Place from "../Places";
+import Place from "../../Components/Place";
 import { getPlaces, userProfile } from "../../types/api";
 
 const Container = styled.div`
@@ -75,7 +75,7 @@ const SettingsPresenter: React.FC<IProps> = ({
         )}
       </GridLink>
       {!placesDataLoading && places && places.map(place => (
-        <Place key={place!.id} fav={place!.isFav} name={place!.name} address={place!.address} />
+        <Place key={place!.id} id={place!.id} fav={place!.isFav} name={place!.name} address={place!.address} />
       ))}
       <SLink to={"/places"}></SLink>
       <FakeLink onClick={logUserOut as any}>Log Out</FakeLink>

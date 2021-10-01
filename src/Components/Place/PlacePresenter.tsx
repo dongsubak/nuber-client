@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFunction } from "react-apollo";
 import styled from "styled-components";
 
 const Place = styled.div`
@@ -23,7 +24,7 @@ const Icon = styled.span`
 `;
 
 const Address = styled.span`
-  color: ${props => props.theme.greyColor};
+  color: ${(props) => props.theme.greyColor};
   font-size: 14px;
 `;
 
@@ -31,11 +32,17 @@ interface IProps {
   fav: boolean;
   name: string;
   address: string;
+  onPress: MutationFunction;
 }
 
-const PlacePresenter: React.FC<IProps> = ({fav, name, address}) => (
+const PlacePresenter: React.FC<IProps> = ({
+  onPress,
+  fav,
+  name,
+  address,
+}) => (
   <Place>
-    <Icon>{ fav ? "❤" : "♡"}</Icon>
+    <Icon onClick={onPress as any}>{fav ? "❤" : "♡"}</Icon>
     <Container>
       <Name>{name}</Name>
       <Address>{address}</Address>

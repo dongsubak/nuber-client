@@ -33,6 +33,7 @@ const PlacesPresenter: React.FC<IProps> = ({
       {!loading && places && places.map(place => (
         <Place
           key={place!.id}
+          id={place!.id}
           fav={place!.isFav}
           name={place!.name}
           address={place!.address}

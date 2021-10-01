@@ -18,7 +18,7 @@ Nuber Client - Typescript, React, Apollo
   - [x] Edit Account
   - [x] Settings
   - [x] Saved Places
-  - [ ] Add Place
+  - [x] Add Place
   - [ ] Find Address
   - [ ] Challenge: Ride History
 
