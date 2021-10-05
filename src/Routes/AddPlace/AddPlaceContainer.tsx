@@ -1,5 +1,6 @@
 import React from "react";
 import { Mutation } from "react-apollo";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GET_PLACES } from "../../shared.queries";
 import { ADD_PLACE } from "./AddPlace.queries";
@@ -16,12 +17,12 @@ class AddPlaceContainer extends React.Component<IState> {
   public state = {
     address: "",
     name: "",
-    lat: 38.0,
-    lng: 38.0
+    lat: 0.0,
+    lng: 0.0
   };
   public render() {
     const { address, name, lat, lng } = this.state;
-    const { history } = this.props;
+    const history = useHistory();
     return (
       <Mutation 
         mutation={ADD_PLACE} 
@@ -52,6 +53,7 @@ class AddPlaceContainer extends React.Component<IState> {
             name={name}
             loading={loading}
             onSubmit={addPlaceFn}
+            pickedAddress={lat !== 0 && lng !== 0}
           />
         )}
       </Mutation>
